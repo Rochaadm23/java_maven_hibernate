@@ -6,6 +6,8 @@
 
 	<persistence-unit name="java-maven-hibernate">
 
+		<class>model.UsuarioPessoa</class>
+
 		<properties>
 
 			<!-- Dados de conexão com o DB -->
@@ -15,12 +17,13 @@
 			<property name="hibernate.connection.url"
 				value="jdbc:postgresql://localhost:5432/javahibernate" />
 			<property name="hibernate.dialect"
-				value="org.hibernate.dialect.PostgreSQLDialect" />
+				value="org.hibernate.dialect.PostgreSQL82Dialect" />
 			<property name="hibernate.connection.username"
 				value="postgres" />
 			<property name="hibernate.connection.password"
 				value="12345678" />
-			<property name="hibernate.hbm2dll.auto" value="update" />
+			<property name="hibernate.format_sql" value="false" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
 
 		</properties>
 
