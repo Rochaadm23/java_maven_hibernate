@@ -50,20 +50,26 @@ public class DaoGeneric<E> {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
 
-		entityManager.createNativeQuery(
-				"delete from " + entidade.getClass().getSimpleName().toLowerCase() + " where id =" + id).executeUpdate();// deleta
-		transaction.commit();//grava a operação
+		entityManager
+				.createNativeQuery(
+						"delete from " + entidade.getClass().getSimpleName().toLowerCase() + " where id =" + id)
+				.executeUpdate();// deleta
+		transaction.commit();// grava a operação
 	}
-	
-	public List<E> listar(Class<E> entidade){
+
+	public List<E> listar(Class<E> entidade) {
 		EntityTransaction transaction = entityManager.getTransaction();
 		transaction.begin();
-		
+
 		@SuppressWarnings("unchecked")
 		List<E> lista = entityManager.createQuery("from " + entidade.getName()).getResultList();
-		
+
 		transaction.commit();
-		
+
 		return lista;
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
 	}
 }
