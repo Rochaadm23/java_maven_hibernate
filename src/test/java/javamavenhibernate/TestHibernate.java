@@ -97,19 +97,28 @@ public class TestHibernate {
 			System.out.println(p);
 		}
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void testeQueryListParameter() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<>();
 		List<UsuarioPessoa> list = daoGeneric.getEntityManager()
 				.createQuery("from UsuarioPessoa where nome = :nome or sobrenome = :sobrenome")
-				.setParameter("nome", "Fernando")
-				.setParameter("sobrenome", "Rocha")
-				.getResultList();
-		
+				.setParameter("nome", "Fernando").setParameter("sobrenome", "Rocha").getResultList();
+
 		for (UsuarioPessoa usuarioP : list) {
 			System.out.println(usuarioP);
 		}
+	}
+
+	@Test
+	public void testeQuerySomaIdade() {
+
+		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<>();
+
+		Double somaIdade = (Double) daoGeneric.getEntityManager().createQuery("select avg(u.idade) from UsuarioPessoa u ")
+				.getSingleResult();
+		
+		System.out.println("Soma de todas as Idades é --> " + somaIdade);
 	}
 }
