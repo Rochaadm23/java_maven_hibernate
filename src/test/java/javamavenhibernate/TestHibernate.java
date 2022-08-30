@@ -7,7 +7,7 @@ import model.UsuarioPessoa;
 
 public class TestHibernate {
 
-	@Test
+	
 	public void testeHibernateUtil() {
 
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
@@ -24,7 +24,7 @@ public class TestHibernate {
 		System.out.println(pessoa);
 	}
 
-	@Test
+	
 	public void testeBuscar() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		UsuarioPessoa pessoa = new UsuarioPessoa();
@@ -43,7 +43,7 @@ public class TestHibernate {
 		System.out.println(pessoa);
 	}
 
-	@Test
+	
 	public void testeUpdate() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		UsuarioPessoa pessoa = daoGeneric.pesquisar(1L, UsuarioPessoa.class);
@@ -52,6 +52,16 @@ public class TestHibernate {
 		pessoa.setNome("Atualizaado Hibernate");
 
 		pessoa = daoGeneric.updateMerge(pessoa);
+
+		System.out.println(pessoa);
+	}
+	
+	@Test
+	public void testeDelete() {
+		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+		UsuarioPessoa pessoa = daoGeneric.pesquisar(4L, UsuarioPessoa.class);
+		
+		daoGeneric.deletaPorId(pessoa);
 
 		System.out.println(pessoa);
 	}
