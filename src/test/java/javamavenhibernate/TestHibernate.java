@@ -97,4 +97,19 @@ public class TestHibernate {
 			System.out.println(p);
 		}
 	}
+	
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testeQueryListParameter() {
+		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<>();
+		List<UsuarioPessoa> list = daoGeneric.getEntityManager()
+				.createQuery("from UsuarioPessoa where nome = :nome or sobrenome = :sobrenome")
+				.setParameter("nome", "Fernando")
+				.setParameter("sobrenome", "Rocha")
+				.getResultList();
+		
+		for (UsuarioPessoa usuarioP : list) {
+			System.out.println(usuarioP);
+		}
+	}
 }
