@@ -1,5 +1,7 @@
 package javamavenhibernate;
 
+import java.util.List;
+
 import org.junit.Test;
 
 import dao.DaoGeneric;
@@ -7,7 +9,6 @@ import model.UsuarioPessoa;
 
 public class TestHibernate {
 
-	
 	public void testeHibernateUtil() {
 
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
@@ -24,7 +25,6 @@ public class TestHibernate {
 		System.out.println(pessoa);
 	}
 
-	
 	public void testeBuscar() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		UsuarioPessoa pessoa = new UsuarioPessoa();
@@ -43,11 +43,10 @@ public class TestHibernate {
 		System.out.println(pessoa);
 	}
 
-	
 	public void testeUpdate() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		UsuarioPessoa pessoa = daoGeneric.pesquisar(1L, UsuarioPessoa.class);
-		
+
 		pessoa.setIdade(99);
 		pessoa.setNome("Atualizaado Hibernate");
 
@@ -55,14 +54,25 @@ public class TestHibernate {
 
 		System.out.println(pessoa);
 	}
-	
-	@Test
+
 	public void testeDelete() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
 		UsuarioPessoa pessoa = daoGeneric.pesquisar(4L, UsuarioPessoa.class);
-		
+
 		daoGeneric.deletaPorId(pessoa);
 
 		System.out.println(pessoa);
+	}
+
+	@Test
+	public void testeListar() {
+		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<UsuarioPessoa>();
+		List<UsuarioPessoa> pessoas = daoGeneric.listar(UsuarioPessoa.class);
+		for (UsuarioPessoa usuarioPessoa : pessoas) {
+			System.out.println(usuarioPessoa);
+			System.out.println("------------------------------------------");
+
+		}
+
 	}
 }
