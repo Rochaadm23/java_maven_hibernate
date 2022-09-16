@@ -116,9 +116,33 @@ public class TestHibernate {
 
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<>();
 
-		Double somaIdade = (Double) daoGeneric.getEntityManager().createQuery("select avg(u.idade) from UsuarioPessoa u ")
+		Double somaIdade = (Double) daoGeneric.getEntityManager()
+				.createQuery("select avg(u.idade) from UsuarioPessoa u ")
 				.getSingleResult();
-		
+
 		System.out.println("Soma de todas as Idades é --> " + somaIdade);
+	}
+
+	@Test
+	public void testeNamedQuery1() {
+		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<>();
+		List<UsuarioPessoa> list = daoGeneric.getEntityManager().createNamedQuery("UsuarioPessoa.findAll")
+				.getResultList();
+
+		for (UsuarioPessoa usuarioPessoa : list) {
+			System.out.println(usuarioPessoa);
+		}
+	}
+
+	@Test
+	public void testeNamedQuery2() {
+		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<>();
+		List<UsuarioPessoa> list = daoGeneric.getEntityManager().createNamedQuery("UsuarioPessoa.findName")
+				.setParameter("nome", "Fernando")
+				.getResultList();
+
+		for (UsuarioPessoa usuarioPessoa : list) {
+			System.out.println(usuarioPessoa);
+		}
 	}
 }
