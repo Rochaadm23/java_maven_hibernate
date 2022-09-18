@@ -5,6 +5,7 @@ import java.util.List;
 import org.junit.Test;
 
 import dao.DaoGeneric;
+import model.TelefoneUser;
 import model.UsuarioPessoa;
 
 public class TestHibernate {
@@ -123,6 +124,7 @@ public class TestHibernate {
 		System.out.println("Soma de todas as Idades é --> " + somaIdade);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testeNamedQuery1() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<>();
@@ -134,6 +136,7 @@ public class TestHibernate {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testeNamedQuery2() {
 		DaoGeneric<UsuarioPessoa> daoGeneric = new DaoGeneric<>();
@@ -145,4 +148,33 @@ public class TestHibernate {
 			System.out.println(usuarioPessoa);
 		}
 	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testeGravaTelefone() {
+		DaoGeneric daoGeneric = new DaoGeneric<>();
+		UsuarioPessoa pessoa = (UsuarioPessoa) daoGeneric.pesquisar(4L, UsuarioPessoa.class);
+
+		TelefoneUser telefone = new TelefoneUser();
+		telefone.setTipo("Celular");
+		telefone.setNumero("21985684586");
+		telefone.setUsuarioPessoa(pessoa);
+
+		daoGeneric.salvar(telefone);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Test
+	public void testeConsultaTelefones() {
+		DaoGeneric daoGeneric = new DaoGeneric<>();
+		UsuarioPessoa pessoa = (UsuarioPessoa) daoGeneric.pesquisar(4L, UsuarioPessoa.class);
+		for (TelefoneUser fone : pessoa.getTelefoneUsers()) {
+			System.out.println("Telefone numero: " + fone.getNumero());
+			System.out.println("Tipo telefone: " + fone.getTipo());
+			System.out.println("Usuário: " + fone.getUsuarioPessoa().getNome());
+			System.out.println("-----------------------------------------------------");
+		}
+	}
+
 }
